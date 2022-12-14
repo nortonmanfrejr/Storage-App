@@ -1,0 +1,31 @@
+INSERT INTO
+
+
+INSERT INTO tbequipamento
+(tipoEquipamento,patrimonio,servicetag,modelo,marca,observacao,status,disponibilidadeEmprestimo,emprestado,fk_ambienteID)
+VALUES (?,?,?,?,?,?,?,?,?,
+(SELECT ambienteID FROM tbambiente WHERE andar = ? AND departamento = ? AND setor = ?)
+)
+
+INSERT INTO tbambiente
+(andar,setor,departamento) VALUES (?,?,?)
+
+INSERT INTO tbmaquina
+(armazenamento,memoriaRAM,gpu,sistemaOperacional,fk_equipamentoID)
+VALUES (?,?,?,?,
+(SELECT equipamentoID FROM tbequipamento WHERE patrimonio = ?)
+)
+
+INSERT INTO tbmonitor
+(ajustabilidade, fk_equipamentoID)
+VALUES (?,
+(SELECT equipamentoID FROM tbequipamento WHERE patrimonio = ?)
+)
+
+INSERT INTO tbconjunto
+(fk_maquinaID,fk_monitorID1,fk_monitorID2)
+VALUES(
+(SELECT maquinaID FROM tbmaquina INNER JOIN tbequipamento AS equipamento WHERE equipamento.patrimonio = ?),
+(SELECT monitorID FROM tbmonitor INNER JOIN tbequipamento AS equipamento WHERE equipamento.patrimonio = ?),
+(SELECT monitorID FROM tbmonitor INNER JOIN tbequipamento AS equipamento WHERE equipamento.patrimonio = ?)
+)
