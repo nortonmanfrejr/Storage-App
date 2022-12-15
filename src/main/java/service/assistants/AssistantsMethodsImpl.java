@@ -1,5 +1,6 @@
 package service.assistants;
 
+import service.dispatcher.DispatcherNotebook;
 import service.dispatcher.conveyor.ConveyorImpl;
 import service.dispatcher.DispatcherDesktop;
 import service.dispatcher.DispatcherInterface;
@@ -54,7 +55,7 @@ public class AssistantsMethodsImpl implements AssistantsMethodInterface {
 
             case "Notebook" :
                 switcher();
-                changerMainFrameCenterLayout(new AltPaneNotebook(), new DispatcherDesktop());
+                changerMainFrameCenterLayout(new AltPaneNotebook(), new DispatcherNotebook());
                 break;
 
             default:

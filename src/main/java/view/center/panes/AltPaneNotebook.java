@@ -5,16 +5,17 @@ import service.dispatcher.DispatcherNotebook;
 import service.dispatcher.conveyor.ConveyorImpl;
 import service.dispatcher.conveyor.ConveyorInterface;
 import view.requierements.ComponentsRequierementsImpl;
+import view.requierements.StaticFieldRequierementsVar;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class AltPaneNotebook implements AltPaneInterface {
-    ConveyorInterface conveyorInterface = new ConveyorImpl(new DispatcherNotebook());
-
-    ComponentsRequierementsImpl f = new ComponentsRequierementsImpl();
-
+    private ConveyorInterface conveyorInterface = new ConveyorImpl(new DispatcherNotebook());
     private final NotebookTBModel notebookTBModel = new NotebookTBModel(conveyorInterface.read());
+
+    private ComponentsRequierementsImpl f = new ComponentsRequierementsImpl();
+
     @Override
     public JPanel northTitle() {
         JLabel tituloPagina = new JLabel("Gerenciador - Notebook");
@@ -70,8 +71,8 @@ public class AltPaneNotebook implements AltPaneInterface {
         }), f.fieldConstraints(1,0));
 
         gridPanel.add(f.factoryJButton("Buscar", e -> {
-            notebookTBModel.reloadTableWithSetValues(conveyorInterface.search());
-
+            notebookTBModel.reloadTable(conveyorInterface.search());
+            StaticFieldRequierementsVar.txf_campoDeBusca.setText("Campo de Busca...");
         }), f.fieldConstraints(2,0));
 
         gridPanel.add(f.factoryJButton("Alterar",e -> {

@@ -137,8 +137,6 @@ public class ReceiverImpl implements ReceiverInterface {
                 ));
     }
 
-    // verificar depois, problema na captura de texto das combobox de maquinas
-    // Monitor operando normalmente e equipamento tambem
     @Override
     public String valueOfComboBoxDTO(JComboBox<String> jComboBox) {
         return String.valueOf(

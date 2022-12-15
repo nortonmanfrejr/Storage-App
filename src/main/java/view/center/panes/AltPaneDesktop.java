@@ -5,16 +5,16 @@ import service.dispatcher.DispatcherDesktop;
 import service.dispatcher.conveyor.ConveyorImpl;
 import service.dispatcher.conveyor.ConveyorInterface;
 import view.requierements.ComponentsRequierementsImpl;
+import view.requierements.StaticFieldRequierementsVar;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class AltPaneDesktop implements AltPaneInterface {
 
-    ComponentsRequierementsImpl f = new ComponentsRequierementsImpl();
-    ConveyorInterface conveyorInterface = new ConveyorImpl(new DispatcherDesktop());
-
-    private DesktopTBModel desktopTBModel = new DesktopTBModel(conveyorInterface.read());
+    private ConveyorInterface conveyorInterface = new ConveyorImpl(new DispatcherDesktop());
+    private final DesktopTBModel desktopTBModel = new DesktopTBModel(conveyorInterface.read());
+    private ComponentsRequierementsImpl f = new ComponentsRequierementsImpl();
 
     @Override
     public JPanel northTitle() {
@@ -44,9 +44,10 @@ public class AltPaneDesktop implements AltPaneInterface {
         f.addComponentIntoPaneIfGridPane(centerPanel,"RAM :",f.cb_memoriaRAM(),2,1);
         f.addComponentIntoPaneIfGridPane(centerPanel,"Armazenamento :",f.cb_tipoArmazenamento(),2,2);
         f.addComponentIntoPaneIfGridPane(centerPanel,"Sistema :",f.cb_sistemaOperacional(),2,3);
-        f.addComponentIntoPaneIfGridPane(centerPanel,"Mac Adress :", f.txf_macAdress(),3,0);
-        f.addComponentIntoGridPaneNoLabel(centerPanel, new JLabel("Observação"), 3,1);
-        f.addComponentIntoGridPaneNoLabel(centerPanel,f.txa_observacao(),3,2);
+        f.addComponentIntoPaneIfGridPane(centerPanel,"Empréstimo :",f.cb_disponibilidadeEmprestimo(),3,0);
+        f.addComponentIntoPaneIfGridPane(centerPanel,"Mac Adress :", f.txf_macAdress(),3,1);
+        f.addComponentIntoGridPaneNoLabel(centerPanel, new JLabel("Observação"), 3,2);
+        f.addComponentIntoGridPaneNoLabel(centerPanel,f.txa_observacao(),3,3);
 
         return centerPanel;
     }
@@ -72,6 +73,7 @@ public class AltPaneDesktop implements AltPaneInterface {
 
         gridPanel.add(f.factoryJButton("Buscar", e -> {
             desktopTBModel.reloadTableWithSetValues(conveyorInterface.search());
+            StaticFieldRequierementsVar.txf_campoDeBusca.setText("Campo de Busca...");
 
         }), f.fieldConstraints(2,0));
 

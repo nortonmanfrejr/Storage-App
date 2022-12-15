@@ -16,10 +16,10 @@ public class DisplayAnswer extends JDialog implements ActionListener {
     private JLabel messageLabel = new JLabel();
 
     private Boolean answer = false;
-    private String message;
+
 
     public DisplayAnswer() {
-        super(MenuPrincipal.mainFrame, "Ooops...");
+        super(MenuPrincipal.mainFrame, "W2");
     }
 
     public boolean displayAnswer(String message) {

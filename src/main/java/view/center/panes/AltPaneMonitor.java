@@ -6,6 +6,7 @@ import service.dispatcher.DispatcherMonitor;
 import service.dispatcher.conveyor.ConveyorImpl;
 import service.dispatcher.conveyor.ConveyorInterface;
 import view.requierements.ComponentsRequierementsImpl;
+import view.requierements.StaticFieldRequierementsVar;
 
 import javax.swing.*;
 import java.awt.*;
@@ -66,10 +67,13 @@ public class AltPaneMonitor implements AltPaneInterface {
             monitorTBModel.reloadTable(conveyorInterface.read());
         }), f.fieldConstraints(0,1));
 
-        gridPanel.add(f.factoryJButton("Listar",e -> {conveyorInterface.read();}), f.fieldConstraints(1,0));
+        gridPanel.add(f.factoryJButton("Listar",e -> {
+            monitorTBModel.reloadTable(conveyorInterface.read());
+        }), f.fieldConstraints(1,0));
 
         gridPanel.add(f.factoryJButton("Buscar", e -> {
-            monitorTBModel.reloadTableWithSetValues(conveyorInterface.search());
+            monitorTBModel.reloadTable(conveyorInterface.search());
+            StaticFieldRequierementsVar.txf_campoDeBusca.setText("Campo de Busca...");
         }), f.fieldConstraints(2,0));
 
         gridPanel.add(f.factoryJButton("Alterar",e -> {

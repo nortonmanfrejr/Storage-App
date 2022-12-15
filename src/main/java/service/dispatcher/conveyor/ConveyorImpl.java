@@ -34,6 +34,10 @@ public class ConveyorImpl implements ConveyorInterface{
                 getText();
     }
 
+    private String valueOfTxfBuscar() {
+        return StaticFieldRequierementsVar.txf_campoDeBusca.getText();
+    }
+
 
     private List<String> listOfValues(String col){
         return dataList.dataListForJCBModel(
@@ -42,6 +46,16 @@ public class ConveyorImpl implements ConveyorInterface{
 
                 valueOfPatrimonio(),
                 valueOfServiceTag()
+        );
+    }
+
+    private List<String> listOfValues2(String col){
+        return dataList.dataListForJCBModel(
+                "SELECT * FROM tbequipamento WHERE patrimonio = ? OR servicetag = ?",
+                col,
+
+                valueOfTxfBuscar(),
+                valueOfTxfBuscar()
         );
     }
 
@@ -66,26 +80,28 @@ public class ConveyorImpl implements ConveyorInterface{
 
     @Override
     public void update() {
-        if (!listOfValues("patrimonio").contains(valueOfPatrimonio()) &&
-                !listOfValues("servicetag").contains(valueOfServiceTag()))
+        if (!listOfValues2("patrimonio").contains(valueOfTxfBuscar()) &&
+                !listOfValues2("servicetag").contains(valueOfTxfBuscar()))
 
             displayOk(notExists);
         else {
             dispatcherEquipamento.valueForUpdate();
             dispatcherInterface.valueForUpdate();
+            StaticFieldRequierementsVar.txf_campoDeBusca.setText("Campo de Busca...");
             displayOk("Alterado com sucesso.");
         }
     }
 
     @Override
     public void delete() {
-        if (!listOfValues("patrimonio").contains(valueOfPatrimonio()) ||
-                !listOfValues("servicetag").contains(valueOfServiceTag()))
-            displayOk(notExists);
+        if (!listOfValues2("patrimonio").contains(valueOfTxfBuscar()) &&
+                !listOfValues2("servicetag").contains(valueOfTxfBuscar()))
 
+            displayOk(notExists);
         else {
                 dispatcherInterface.valueForDelete();
                 dispatcherEquipamento.valueForDelete();
+                StaticFieldRequierementsVar.txf_campoDeBusca.setText("Campo de Busca...");
                 displayOk("Excluido com sucesso!");
         }
     }
