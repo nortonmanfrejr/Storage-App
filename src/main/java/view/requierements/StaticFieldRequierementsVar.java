@@ -4,6 +4,7 @@ import javax.swing.*;
 
 public class StaticFieldRequierementsVar extends FieldAssistant{
 
+
     public static JTextField txfPatrimonio;
     public static JTextField txfServiceTag;
     public static JTextField txfMacAdress;

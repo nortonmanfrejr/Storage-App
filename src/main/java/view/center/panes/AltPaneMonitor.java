@@ -63,9 +63,17 @@ public class AltPaneMonitor implements AltPaneInterface {
         }), f.fieldConstraints(0,0));
 
         gridPanel.add(f.factoryJButton("Deletar",e -> {
-            conveyorInterface.delete();
-            monitorTBModel.reloadTable(conveyorInterface.read());
-        }), f.fieldConstraints(0,1));
+            int response = JOptionPane.showConfirmDialog(null,
+                    "Deseja excluir o equipamento?",
+                    "Confirmar",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE
+            );
+
+            if (response == JOptionPane.YES_OPTION) {
+                conveyorInterface.delete();
+                monitorTBModel.reloadTable(conveyorInterface.read());
+            }}), f.fieldConstraints(0,1));
 
         gridPanel.add(f.factoryJButton("Listar",e -> {
             monitorTBModel.reloadTable(conveyorInterface.read());
@@ -77,8 +85,17 @@ public class AltPaneMonitor implements AltPaneInterface {
         }), f.fieldConstraints(2,0));
 
         gridPanel.add(f.factoryJButton("Alterar",e -> {
-            conveyorInterface.update();
-            monitorTBModel.reloadTable(conveyorInterface.read());
+            int response = JOptionPane.showConfirmDialog(null,
+                    "Deseja excluir o equipamento?",
+                    "Confirmar",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE
+            );
+
+            if (response == JOptionPane.YES_OPTION) {
+                conveyorInterface.delete();
+                monitorTBModel.reloadTable(conveyorInterface.read());
+            }
         }), f.fieldConstraints(1,1));
 
         JPanel eastPanel = new JPanel(new BorderLayout());

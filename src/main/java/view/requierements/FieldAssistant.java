@@ -11,7 +11,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public abstract class FieldAssistant {
+public class FieldAssistant {
 
     AssistantsMethodInterface services = new AssistantsMethodsImpl();
     ComboBoxModelInterface comboBoxData = new CBoxModel();
@@ -95,6 +95,5 @@ public abstract class FieldAssistant {
                 fieldConstraints(gridXY[0],gridXY[1])
         );
     }
-
 
 }

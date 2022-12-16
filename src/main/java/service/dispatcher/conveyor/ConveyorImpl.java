@@ -4,19 +4,20 @@ import model.jComboBoxModel.CBoxModel;
 import model.jComboBoxModel.ComboBoxModelInterface;
 import service.dispatcher.DispatcherEquipamento;
 import service.dispatcher.DispatcherInterface;
-import view.DisplayAnswer;
+import view.DisplayImpl;
+import view.requierements.FieldAssistant;
 import view.requierements.StaticFieldRequierementsVar;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ConveyorImpl implements ConveyorInterface{
 
-    private final DispatcherInterface dispatcherInterface;
+    private final DisplayImpl display = new DisplayImpl();
     private final DispatcherInterface dispatcherEquipamento = new DispatcherEquipamento();
+    private final DispatcherInterface dispatcherInterface;
+    private ComboBoxModelInterface dataList = new CBoxModel();
 
-    DisplayAnswer displayAnswer;
-    ComboBoxModelInterface dataList = new CBoxModel();
+
 
     public ConveyorImpl(DispatcherInterface dispatcherInterface) {
         this.dispatcherInterface = dispatcherInterface;
@@ -59,11 +60,6 @@ public class ConveyorImpl implements ConveyorInterface{
         );
     }
 
-    private void displayOk(String message) {
-        displayAnswer = new DisplayAnswer();
-        displayAnswer.confirmDisplay(message);
-    }
-
     @Override
     public void insert() {
         if (!listOfValues("patrimonio").contains(valueOfPatrimonio()) &&
@@ -73,7 +69,7 @@ public class ConveyorImpl implements ConveyorInterface{
             dispatcherEquipamento.valueForInsert();
             dispatcherInterface.valueForInsert();
         } else
-            displayOk("O equipamento ja existe em nossos registros.");
+            display.displayWithOk("O equipamento ja existe em nossos registros.");
     }
 
     private final String notExists = "Equipamento não listado.";
@@ -83,12 +79,12 @@ public class ConveyorImpl implements ConveyorInterface{
         if (!listOfValues2("patrimonio").contains(valueOfTxfBuscar()) &&
                 !listOfValues2("servicetag").contains(valueOfTxfBuscar()))
 
-            displayOk(notExists);
+            display.displayWithOk(notExists);
         else {
             dispatcherEquipamento.valueForUpdate();
             dispatcherInterface.valueForUpdate();
             StaticFieldRequierementsVar.txf_campoDeBusca.setText("Campo de Busca...");
-            displayOk("Alterado com sucesso.");
+            display.displayWithOk("Alterado com sucesso.");
         }
     }
 
@@ -97,12 +93,13 @@ public class ConveyorImpl implements ConveyorInterface{
         if (!listOfValues2("patrimonio").contains(valueOfTxfBuscar()) &&
                 !listOfValues2("servicetag").contains(valueOfTxfBuscar()))
 
-            displayOk(notExists);
+            display.displayWithOk(notExists);
         else {
-                dispatcherInterface.valueForDelete();
-                dispatcherEquipamento.valueForDelete();
-                StaticFieldRequierementsVar.txf_campoDeBusca.setText("Campo de Busca...");
-                displayOk("Excluido com sucesso!");
+            dispatcherInterface.valueForDelete();
+            dispatcherEquipamento.valueForDelete();
+            StaticFieldRequierementsVar.txf_campoDeBusca.setText("Campo de Busca...");
+            display.displayWithOk("Excluido com sucesso!");
+
         }
     }
 

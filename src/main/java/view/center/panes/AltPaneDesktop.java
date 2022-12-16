@@ -63,8 +63,17 @@ public class AltPaneDesktop implements AltPaneInterface {
         }), f.fieldConstraints(0,0));
 
         gridPanel.add(f.factoryJButton("Deletar",e -> {
-            conveyorInterface.delete();
-            desktopTBModel.reloadTable(conveyorInterface.read());
+            int response = JOptionPane.showConfirmDialog(null,
+                    "Deseja excluir o equipamento?",
+                    "Confirmar",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE
+            );
+
+            if (response == JOptionPane.YES_OPTION) {
+                conveyorInterface.delete();
+                desktopTBModel.reloadTable(conveyorInterface.read());
+            }
         }), f.fieldConstraints(0,1));
 
         gridPanel.add(f.factoryJButton("Listar", e -> {
@@ -79,8 +88,17 @@ public class AltPaneDesktop implements AltPaneInterface {
 
 
         gridPanel.add(f.factoryJButton("Alterar",e -> {
-            conveyorInterface.update();
-            desktopTBModel.reloadTable(conveyorInterface.read());
+            int response = JOptionPane.showConfirmDialog(null,
+                    "Deseja alterar o equipamento?",
+                    "Confirmar",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE
+            );
+
+            if (response == JOptionPane.YES_OPTION) {
+                conveyorInterface.update();
+                desktopTBModel.reloadTable(conveyorInterface.read());
+            }
         }), f.fieldConstraints(1,1));
 
         JPanel eastPanel = new JPanel(new BorderLayout());
