@@ -1,5 +1,5 @@
 <div align="center">
-    <h1>Projeto: Daddy Storage</h1>
+    <h1>Projeto: ITSC</h1>
 <hr>
 </div>
 
